@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: 'rocketchat-notifier'
+
+receivers:
+  - name: 'rocketchat-notifier'
+    webhook_configs:
+      - url: 'https://your-rocketchat-server/hooks/YOUR_INCOMING_WEBHOOK_URL'
+        send_resolved: true
+        message: |
+          {
+            "text": "Alert: {{ .CommonLabels.alertname }}\n{{ .CommonAnnotations.summary }}\n{{ .CommonAnnotations.description }}"
+          }
